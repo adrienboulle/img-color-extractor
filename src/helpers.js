@@ -1,3 +1,5 @@
+'use strict';
+
 const Helpers = function () {};
 
 /**
@@ -41,28 +43,30 @@ Helpers.prototype.hexToRgb = function (hex) {
 };
 
 /**
- * Filter and order colors
+ * Filter and order colorsArrStr
  *
  * Remove shades of gray: if variance(r, g b) > opts.greyVa(=100)
- * Merge close colors:
- * 1. sort colors by occurrence
- * 2. iterate the colors starting by the most common -> c1
- *    iterate the other and less common colors -> c2
+ * Merge close colorsArrStr:
+ * 1. sort colorsArrStr by occurrence
+ * 2. iterate the colorsArrStr starting by the most common -> c1
+ *    iterate the other and less common colorsArrStr -> c2
  *    if distance(c1, c2) < opts.dist(=100)
  *      c2 <- c1
  *
  *
- * @param colors {string[]} - array of hex colors
+ * @param colorsArrStr {string[]} - array of hex colorsArrStr
  * @param opts {Object=} - options
- * @returns {Array} - the filtered and ordered colors
+ * @returns {Array} - the filtered and ordered colorsArrStr
  */
-Helpers.prototype.filter = function (colors, opts) {
+Helpers.prototype.filter = function (colorsArrStr, opts) {
+  opts = opts || {};
+
   const options = {
     dist: opts.dist || 100,
     greyVa: opts.greyVa || 100,
   };
 
-  colors = colors.filter(c => {
+  colorsArrStr = colorsArrStr.filter(c => {
     const rgb = this.hexToRgb(c);
     const moy = (rgb.r + rgb.g + rgb.b) / 3;
     const va = (rgb.r - moy) * (rgb.r - moy) + (rgb.g - moy) * (rgb.g - moy) + (rgb.b - moy) * (rgb.b - moy);
@@ -71,10 +75,10 @@ Helpers.prototype.filter = function (colors, opts) {
       return c;
   });
 
-  const countsObj = {};
-  const colorsArr = [];
+  let countsObj = {};
+  let colorsArrObj = [];
 
-  for (let c of colors) {
+  for (let c of colorsArrStr) {
     countsObj[c] = countsObj[c] ? countsObj[c] + 1 : 1;
   }
 
@@ -82,27 +86,44 @@ Helpers.prototype.filter = function (colors, opts) {
     if (!/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c))
       continue;
 
-    colorsArr.push({
+    colorsArrObj.push({
       color: c,
       n: countsObj[c],
     });
   }
 
-  colorsArr.sort((a, b) => b.n - a.n);
+  colorsArrObj.sort((a, b) => b.n - a.n);
 
-  for (let i = 0; i < colorsArr.length - 1; i++) {
-    const rgb = this.hexToRgb(colorsArr[i].color);
+  for (let i = 0; i < colorsArrObj.length - 1; i++) {
+    const rgb = this.hexToRgb(colorsArrObj[i].color);
 
-    for (let j = i + 1; j < colorsArr.length; j++) {
-      const rgbNext = this.hexToRgb(colorsArr[j].color);
+    for (let j = i + 1; j < colorsArrObj.length; j++) {
+      const rgbNext = this.hexToRgb(colorsArrObj[j].color);
       const dist = Math.sqrt((rgbNext.r - rgb.r) * (rgbNext.r - rgb.r) + (rgbNext.g - rgb.g) * (rgbNext.g - rgb.g) + (rgbNext.b - rgb.b) * (rgbNext.b - rgb.b));
 
       if (dist < options.dist)
-        colorsArr[j].color = colorsArr[i].color;
+        colorsArrObj[j].color = colorsArrObj[i].color;
     }
   }
 
-  return colorsArr;
+  countsObj = {};
+  const colorsArrObjRet = [];
+
+  for (let c of colorsArrObj) {
+    countsObj[c.color] = countsObj[c.color] ? countsObj[c.color] + c.n : 1;
+  }
+
+  for (let c in countsObj) {
+    if (!/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c))
+      continue;
+
+    colorsArrObjRet.push({
+      color: c,
+      n: countsObj[c],
+    });
+  }
+
+  return colorsArrObjRet;
 };
 
 module.exports = new Helpers();

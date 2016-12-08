@@ -1,25 +1,25 @@
 const Helpers = function () {};
 
-Helpers.prototype.componentToHex = function(c) {
+Helpers.prototype.componentToHex = function (c) {
   const hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
+  return hex.length == 1 ? '0' + hex : hex;
 };
 
-Helpers.prototype.rgbToHex = function(r, g, b) {
-  return "#" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
+Helpers.prototype.rgbToHex = function (r, g, b) {
+  return '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
 };
 
-Helpers.prototype.hexToRgb = function(hex) {
+Helpers.prototype.hexToRgb = function (hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
   return result ? {
     r: parseInt(result[1], 16),
     g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
+    b: parseInt(result[3], 16),
   } : null;
 };
 
-Helpers.prototype.removeTooClose = function(colors) {
+Helpers.prototype.removeTooClose = function (colors) {
   const countsObj = {};
   const colorsArr = [];
 
@@ -34,12 +34,10 @@ Helpers.prototype.removeTooClose = function(colors) {
     colorsArr.push({
       color: c,
       n: countsObj[c],
-    })
+    });
   }
 
-  colorsArr.sort((a, b) => {
-    return b.n - a.n;
-});
+  colorsArr.sort((a, b) => b.n - a.n);
 
   for (let i = 0; i < colorsArr.length - 1; i++) {
     if (colorsArr[i].color === '')

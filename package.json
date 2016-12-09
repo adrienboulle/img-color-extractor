@@ -1,6 +1,6 @@
 {
   "name": "img-color-extractor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Extract main colors from png",
   "main": "index.js",
   "scripts": {

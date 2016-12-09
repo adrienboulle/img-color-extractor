@@ -95,7 +95,7 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
   countsObj = {};
   let total = 0;
 
-  for (let i = 0; i < colorsArrObj.length - 1; i++) {
+  for (let i = 0; i < colorsArrObj.length; i++) {
     if (typeof colorsArrObj[i].color === 'undefined')
       continue;
 

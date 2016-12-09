@@ -9,7 +9,6 @@ $ npm install --save img-color-extractor
 
 ##Usage
 
-###JavaScript
 ```
 const fs = require('fs');
 const colorExtractor = require('img-color-extractor');

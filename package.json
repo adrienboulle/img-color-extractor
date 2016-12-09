@@ -1,6 +1,6 @@
 {
   "name": "img-color-extractor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Extract main colors from png",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,17 @@
     "type": "git",
     "url": "git+ssh://git@github.com/adboul/img-color-extractor.git"
   },
+  "keywords": [
+    "color",
+    "img",
+    "image",
+    "picture",
+    "main color",
+    "dominant color",
+    "extract colors",
+    "extraction",
+    "color extraction"
+  ],
   "author": "Adrien Boullé",
   "license": "MIT",
   "bugs": {

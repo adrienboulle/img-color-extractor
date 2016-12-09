@@ -69,7 +69,7 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
   colorsArrStr = colorsArrStr.filter(c => {
     const rgb = this.hexToRgb(c);
     const moy = (rgb.r + rgb.g + rgb.b) / 3;
-    const va = (rgb.r - moy) * (rgb.r - moy) + (rgb.g - moy) * (rgb.g - moy) + (rgb.b - moy) * (rgb.b - moy);
+    const va = ((rgb.r - moy) * (rgb.r - moy) + (rgb.g - moy) * (rgb.g - moy) + (rgb.b - moy) * (rgb.b - moy)) / 3;
 
     if (va > options.greyVa)
       return c;
@@ -110,7 +110,7 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
   const colorsArrObjRet = [];
 
   for (let c of colorsArrObj) {
-    countsObj[c.color] = countsObj[c.color] ? countsObj[c.color] + c.n : 1;
+    countsObj[c.color] = countsObj[c.color] ? countsObj[c.color] + c.n : c.n;
   }
 
   for (let c in countsObj) {

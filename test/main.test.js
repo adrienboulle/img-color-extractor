@@ -9,7 +9,7 @@ const colorExtractor = require('./../index');
 let stream;
 
 beforeEach(() => {
-  stream = fs.createReadStream(__dirname + '/in2.png')
+  stream = fs.createReadStream(__dirname + '/in.png')
   .on('error', () => expect(true).to.be(false));
 });
 

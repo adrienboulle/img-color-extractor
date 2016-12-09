@@ -60,10 +60,9 @@ Helpers.prototype.hexToRgb = function (hex) {
  */
 Helpers.prototype.filter = function (colorsArrStr, opts) {
   opts = opts || {};
-
   const options = {
     dist: opts.dist || 100,
-    greyVa: opts.greyVa || 100,
+    greyVa: opts.greyVa || -1,
   };
 
   colorsArrStr = colorsArrStr.filter(c => {
@@ -108,8 +107,10 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
 
   countsObj = {};
   const colorsArrObjRet = [];
+  let total = 0;
 
   for (let c of colorsArrObj) {
+    total += c.n;
     countsObj[c.color] = countsObj[c.color] ? countsObj[c.color] + c.n : c.n;
   }
 
@@ -120,6 +121,7 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
     colorsArrObjRet.push({
       color: c,
       n: countsObj[c],
+      r: Number((countsObj[c] / total).toFixed(10)),
     });
   }
 

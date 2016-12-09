@@ -16,7 +16,7 @@ beforeEach(() => {
 it('should find more than one color', function (done) {
   this.timeout(20000);
 
-  colorExtractor.extract(stream, { greyVa: -1, dist: 40 })
+  colorExtractor.extract(stream)
   .then(colors => {
     expect(colors.length).to.be.greaterThan(1);
 
@@ -31,6 +31,7 @@ it('should find only the main color #ffffff with greyVa = -1 and dist > dMax ~46
   .then(colors => {
     expect(colors.length).to.be(1);
     expect(colors[0].n).to.be(2080747);
+    expect(colors[0].r).to.be(1);
     expect(colors[0].color).to.be('#ffffff');
 
     done();

@@ -1,11 +1,10 @@
 {
-  "name": "color-extractor",
+  "name": "img-color-extractor",
   "version": "1.0.0",
   "description": "Extract main colors from png",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/*.test.js test/**/*.test.js",
-    "lint": "gulp-lint"
+    "test": "gulp && mocha test/*.test.js test/**/*.test.js"
   },
   "repository": {
     "type": "git",

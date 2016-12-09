@@ -33,7 +33,6 @@ colorExtractor.extract(stream, defaultsOptions)
 });
 ```
  
-![alt text](https://github.com/adboul/img-color-extractor/blob/master/test/in.png?raw=true "NodeJS logo")
 ![alt text](https://github.com/adboul/img-color-extractor/blob/master/test/out.png?raw=true "NodeJS logo")
 
 # License

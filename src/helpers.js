@@ -53,10 +53,9 @@ Helpers.prototype.hexToRgb = function (hex) {
  *    if distance(c1, c2) < opts.dist(=100)
  *      c2 <- c1
  *
- *
  * @param colorsArrStr {string[]} - array of hex colorsArrStr
  * @param opts {Object=} - options
- * @returns {Array} - the filtered and ordered colorsArrStr
+ * @returns {Array} - the filtered and ordered colors
  */
 Helpers.prototype.filter = function (colorsArrStr, opts) {
   opts = opts || {};

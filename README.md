@@ -1,1 +1,1 @@
-# Color Extractor
+# Img Color Extractor

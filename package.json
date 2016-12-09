@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/adboul/color-extractor.git"
+    "url": "git+ssh://git@github.com/adboul/img-color-extractor.git"
   },
   "author": "Adrien Boullé",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/adboul/color-extractor/issues"
+    "url": "https://github.com/adboul/img-color-extractor/issues"
   },
-  "homepage": "https://github.com/adboul/color-extractor#readme",
+  "homepage": "https://github.com/adboul/img-color-extractor#readme",
   "devDependencies": {
     "expect.js": "^0.3.1",
     "gulp": "^3.9.1",

@@ -18,8 +18,8 @@ stream = fs.createReadStream('/test/in.png')
 defaultsOptions = {
     background: '#FFFFFF',
     alphaMin: 0,
-    dist: 100,                // distance for regrouping pixels by color
-    greyVa: -1,               // ignore all pixels with variance(r, g, b) < greyVa
+    dist: 100,
+    greyVa: -1,
 };
 
 // retun a promise resolving an array of objects as:

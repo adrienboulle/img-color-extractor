@@ -1,6 +1,8 @@
 # img-color-extractor
 Node module to extract main colors from a PNG image
 
+
+
 ## Installation
 
 ```sh

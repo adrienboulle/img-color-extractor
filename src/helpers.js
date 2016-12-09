@@ -64,26 +64,26 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
     greyVa: opts.greyVa || -1,
   };
 
-  colorsArrStr = colorsArrStr.filter(c => {
-    const rgb = this.hexToRgb(c);
-    const moy = (rgb.r + rgb.g + rgb.b) / 3;
-    const va = ((rgb.r - moy) * (rgb.r - moy) + (rgb.g - moy) * (rgb.g - moy) + (rgb.b - moy) * (rgb.b - moy)) / 3;
-
-    if (va > options.greyVa)
-      return c;
-  });
-
   let countsObj = {};
   let colorsArrObj = [];
 
   for (let c of colorsArrStr) {
+    if (!/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c))
+      continue;
+
+    if (options.greyVa >= 0) {
+      const rgb = this.hexToRgb(c);
+      const moy = (rgb.r + rgb.g + rgb.b) / 3;
+      const va = ((rgb.r - moy) * (rgb.r - moy) + (rgb.g - moy) * (rgb.g - moy) + (rgb.b - moy) * (rgb.b - moy)) / 3;
+
+      if (va <= options.greyVa)
+        continue;
+    }
+
     countsObj[c] = countsObj[c] ? countsObj[c] + 1 : 1;
   }
 
   for (let c in countsObj) {
-    if (!/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c))
-      continue;
-
     colorsArrObj.push({
       color: c,
       n: countsObj[c],
@@ -92,31 +92,38 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
 
   colorsArrObj.sort((a, b) => b.n - a.n);
 
+  countsObj = {};
+  let total = 0;
+
   for (let i = 0; i < colorsArrObj.length - 1; i++) {
+    if (typeof colorsArrObj[i].color === 'undefined')
+      continue;
+
+    countsObj[colorsArrObj[i].color] = colorsArrObj[i].n;
+
+    let n = 0;
     const rgb = this.hexToRgb(colorsArrObj[i].color);
 
     for (let j = i + 1; j < colorsArrObj.length; j++) {
+      if (typeof colorsArrObj[j].color === 'undefined')
+        continue;
+
       const rgbNext = this.hexToRgb(colorsArrObj[j].color);
       const dist = Math.sqrt((rgbNext.r - rgb.r) * (rgbNext.r - rgb.r) + (rgbNext.g - rgb.g) * (rgbNext.g - rgb.g) + (rgbNext.b - rgb.b) * (rgbNext.b - rgb.b));
 
-      if (dist < options.dist)
-        colorsArrObj[j].color = colorsArrObj[i].color;
+      if (dist < options.dist) {
+        n += colorsArrObj[j].n;
+        delete colorsArrObj[j].color;
+      }
     }
+
+    countsObj[colorsArrObj[i].color] += n;
+    total += countsObj[colorsArrObj[i].color];
   }
 
-  countsObj = {};
   const colorsArrObjRet = [];
-  let total = 0;
-
-  for (let c of colorsArrObj) {
-    total += c.n;
-    countsObj[c.color] = countsObj[c.color] ? countsObj[c.color] + c.n : c.n;
-  }
 
   for (let c in countsObj) {
-    if (!/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c))
-      continue;
-
     colorsArrObjRet.push({
       color: c,
       n: countsObj[c],
@@ -124,7 +131,7 @@ Helpers.prototype.filter = function (colorsArrStr, opts) {
     });
   }
 
-  return colorsArrObjRet;
+  return colorsArrObjRet.sort((a, b) => b.n - a.n);
 };
 
 module.exports = new Helpers();

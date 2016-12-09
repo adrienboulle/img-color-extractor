@@ -55,7 +55,7 @@ Helpers.prototype.hexToRgb = function (hex) {
  *
  * @param colorsArrStr {string[]} - array of hex colorsArrStr
  * @param opts {Object=} - options
- * @returns {Array} - the filtered and ordered colors
+ * @returns {Array} - the filtered and ordered colors (e.g. [{ color: `hexa`, n: `numberOfOccurrence`, r: `ratio` }, ...]
  */
 Helpers.prototype.filter = function (colorsArrStr, opts) {
   opts = opts || {};

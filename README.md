@@ -24,6 +24,8 @@ defaultsOptions = {
     greyVa: -1,
 };
 
+// retun a promise resolving an array of objects as:
+// [{ color: `hexa`, n: `numberOfOccurrence`, r: `ratio` }, ...]
 colorExtractor.extract(stream, defaultsOptions)
 .then(colors => {
     console.log(colors) // [ { color: '#ffffff', n: 1515551, r: 0.728368706 },

@@ -1,7 +1,8 @@
 # img-color-extractor
-Node module to extract main colors from a PNG image
+Node module to extract REAL main colors from a PNG image
 
-
+REAL mean that if #333333 and #669F64 are the most present colors in a picture,
+img-color-extractor will extract exactly #333333 and #669F64 and not some color between the two.
 
 ## Installation
 

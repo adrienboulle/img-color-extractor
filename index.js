@@ -34,7 +34,7 @@ exporter.extract = function (stream, opts) {
           const g = Math.floor((1 - o) * backgroundRGB.g + o * this.data[idx + 1]);
           const b = Math.floor((1 - o) * backgroundRGB.b + o * this.data[idx + 2]);
 
-          colors.push(helpers.rgbToHex(r, g, b));
+          colors.push({ r, g, b });
         }
       }
 
